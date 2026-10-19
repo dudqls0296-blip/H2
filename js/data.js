@@ -10,6 +10,8 @@ const DEFAULT_MAGAZINE_INFO = {
     theme: "RE:CORD & BLOOM - 기억의 파편, 내일의 도약",
     publishDate: "2026. 12. 30",
     editorInChief: "언론부 편집국장 이서연",
+    director: "부장 김영빈 (게임&VR콘텐츠 디자인학과)",
+    deputyDirector: "차장 방현식 (방송영상미디어학과)",
     editorialMotto: "학우의 시선으로 캠퍼스를 밝히고, 시대의 목소리를 기록합니다."
 };
 
