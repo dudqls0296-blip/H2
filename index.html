@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인덕대학교 언론부 2026 연말 매거진 | INDUK PRESS</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        induk: {
+                            navy: '#0b1a30',
+                            navyLight: '#162a4a',
+                            gold: '#c59b27',
+                            goldLight: '#e6c567',
+                            wine: '#7b1828',
+                            paper: '#fbf9f5'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#fbf9f5] text-slate-800 antialiased selection:bg-blue-900 selection:text-white">
+
+    <!-- 눈 내리는 효과 캔버스 -->
+    <canvas id="snow-canvas"></canvas>
+
+    <!-- 최상단 헤더 배너 -->
+    <div class="bg-induk-navy text-stone-300 text-xs py-2 px-4 border-b border-white/10 no-print">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1.5 text-amber-400 font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    2026 연말 특별호 (VOL. 48)
+                </span>
+                <span class="hidden md:inline text-white/30">|</span>
+                <span class="hidden md:inline text-stone-400">인덕대학교 월계캠퍼스 언론부 학보사 & 미디어센터</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs">
+                <button type="button" id="snow-toggle-btn" class="px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-white transition flex items-center gap-1">
+                    ❄️ 눈 내림: ON
+                </button>
+                <button type="button" id="open-editor-btn" class="px-3 py-1 rounded bg-amber-500 hover:bg-amber-400 text-stone-900 font-bold transition flex items-center gap-1 shadow">
+                    <i class="fa-solid fa-pen-nib"></i> 기사 작성 / 제작 폼
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 신문/잡지 마스트헤드 (Masthead Header) -->
+    <header class="border-b border-stone-300 bg-white/95 backdrop-blur-sm sticky top-0 z-30 shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-stone-200 pb-4">
+                <!-- 좌측 날짜 및 위치 -->
+                <div class="text-xs text-stone-500 font-serif-kr hidden md:block">
+                    <div>발행: 2026년 12월 30일 (겨울호)</div>
+                    <div>서울특별시 노원구 초안산로 12 은봉관</div>
+                </div>
+
+                <!-- 중앙 메인 제호 (Logo) -->
+                <div class="text-center">
+                    <a href="#" class="inline-block group">
+                        <div class="text-[10px] tracking-[0.35em] text-amber-600 font-semibold uppercase mb-0.5">
+                            INDUK UNIVERSITY JOURNALISM & MEDIA
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-editorial-en font-black tracking-wider text-induk-navy group-hover:text-blue-900 transition">
+                            INDUK PRESS
+                        </h1>
+                        <div class="text-xs font-serif-kr text-stone-600 mt-1 tracking-widest">
+                            인덕대학교 언론부 • 2026 연말 매거진 특별호
+                        </div>
+                    </a>
+                </div>
+
+                <!-- 우측 빠른 메뉴 -->
+                <div class="flex items-center gap-2">
+                    <a href="#article-grid-section" class="text-xs px-3 py-2 text-stone-700 hover:text-induk-navy font-semibold hover:bg-stone-100 rounded-lg transition">
+                        목차 (INDEX)
+                    </a>
+                    <a href="#wish-board-section" class="text-xs px-3 py-2 text-stone-700 hover:text-induk-navy font-semibold hover:bg-stone-100 rounded-lg transition">
+                        연말 롤링페이퍼
+                    </a>
+                    <a href="#about-section" class="text-xs px-3 py-2 text-stone-700 hover:text-induk-navy font-semibold hover:bg-stone-100 rounded-lg transition">
+                        언론부 소개
+                    </a>
+                </div>
+            </div>
+
+            <!-- 하단 슬로건 띠 -->
+            <div class="text-center pt-2.5 text-xs text-stone-500 font-serif-kr italic">
+                “하나님을 경외하고 나를 바쳐 남을 섬기자 — 학우의 시선으로 캠퍼스를 밝히고 시대의 목소리를 기록합니다.”
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+
+        <!-- =================== 커버 스토리 (HERO SECTION) =================== -->
+        <section id="hero-cover-content" class="hero-cover-container rounded-2xl p-6 sm:p-10 lg:p-12 mb-12 shadow-xl border border-stone-800">
+            <!-- app.js의 renderHeroCover()에서 동적으로 채워집니다 -->
+        </section>
+
+        <!-- =================== 카테고리 필터 & 검색 툴바 =================== -->
+        <section id="filter-section" class="mb-10 no-print">
+            <div class="bg-white p-4 sm:p-5 rounded-xl border border-stone-200 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                
+                <!-- 카테고리 버튼들 -->
+                <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-blue-900 text-white shadow" data-category="all">
+                        전체 기사
+                    </button>
+                    <button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white text-stone-700 hover:bg-stone-100 border border-stone-200" data-category="커버 스토리">
+                        커버 스토리
+                    </button>
+                    <button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white text-stone-700 hover:bg-stone-100 border border-stone-200" data-category="캠퍼스 보도">
+                        캠퍼스 보도
+                    </button>
+                    <button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white text-stone-700 hover:bg-stone-100 border border-stone-200" data-category="인덕 피플">
+                        인덕 피플
+                    </button>
+                    <button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white text-stone-700 hover:bg-stone-100 border border-stone-200" data-category="문화 & 라이프">
+                        문화 & 라이프
+                    </button>
+                    <button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white text-stone-700 hover:bg-stone-100 border border-stone-200" data-category="포토 에세이">
+                        포토 에세이
+                    </button>
+                    <button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition bg-white text-stone-700 hover:bg-stone-100 border border-stone-200" data-category="언론부 후기">
+                        언론부 후기
+                    </button>
+                </div>
+
+                <!-- 검색창 및 기사 수 카운터 -->
+                <div class="flex items-center gap-3">
+                    <span id="article-count" class="text-xs font-mono text-stone-500 whitespace-nowrap hidden sm:inline">
+                        6편의 기사
+                    </span>
+                    <div class="relative w-full sm:w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
+                        <input type="text" id="search-input" placeholder="기사 제목, 기자명, 태그 검색..." 
+                               class="w-full pl-8 pr-3 py-1.5 text-xs bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:border-blue-900 focus:bg-white transition">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== 메인 기사 매거진 그리드 =================== -->
+        <section id="article-grid-section" class="mb-16">
+            <div class="flex items-center justify-between mb-6 border-b-2 border-induk-navy pb-3">
+                <div class="flex items-center gap-3">
+                    <span class="w-3 h-3 bg-induk-gold rounded-full"></span>
+                    <h2 class="text-2xl font-serif-kr font-bold text-induk-navy tracking-tight">
+                        연말 기획 기사 & 리포트
+                    </h2>
+                </div>
+                <div class="text-xs text-stone-500 font-mono">
+                    INDUK JOURNALISM ARCHIVE
+                </div>
+            </div>
+
+            <!-- 기사 그리드 컨테이너 -->
+            <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- app.js의 renderArticles()에서 채워집니다 -->
+            </div>
+        </section>
+
+        <!-- =================== 연말 롤링페이퍼 & 소원 보드 =================== -->
+        <section id="wish-board-section" class="mb-16 bg-gradient-to-br from-amber-50/70 to-orange-50/50 p-6 sm:p-10 rounded-2xl border border-amber-200/80 shadow-sm">
+            <div class="max-w-3xl mx-auto text-center mb-8">
+                <span class="text-amber-700 text-xs font-bold uppercase tracking-widest font-mono">
+                    ★ INDUK WISH TREE & ROLLING PAPER
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-serif-kr font-bold text-stone-900 mt-1 mb-3">
+                    학우들의 2026 연말 롤링페이퍼 & 새해 소원 트리
+                </h2>
+                <p class="text-stone-600 text-sm font-serif-kr">
+                    올 한 해 수고한 서로에게, 혹은 2027년 새해를 맞이하는 나 자신에게 따뜻한 응원의 한마디를 남겨주세요.
+                </p>
+            </div>
+
+            <!-- 소원 작성 폼 -->
+            <div class="max-w-2xl mx-auto bg-white p-5 rounded-xl border border-amber-200 shadow-sm mb-10 no-print">
+                <form id="wish-form" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold text-stone-700 mb-1">작성자 (이름 / 전공)</label>
+                            <input type="text" id="wish-author" placeholder="예: 시각디자인과 23학번" required
+                                   class="w-full text-xs p-2.5 bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-700 mb-1">메모지 색상</label>
+                            <div class="flex items-center gap-2 pt-1">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="wish-color" value="yellow" checked class="hidden peer">
+                                    <span class="w-6 h-6 rounded-full bg-yellow-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 transition"></span>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="wish-color" value="pink" class="hidden peer">
+                                    <span class="w-6 h-6 rounded-full bg-pink-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 transition"></span>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="wish-color" value="blue" class="hidden peer">
+                                    <span class="w-6 h-6 rounded-full bg-blue-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 transition"></span>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="wish-color" value="green" class="hidden peer">
+                                    <span class="w-6 h-6 rounded-full bg-green-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 transition"></span>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="wish-color" value="purple" class="hidden peer">
+                                    <span class="w-6 h-6 rounded-full bg-purple-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 transition"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-stone-700 mb-1">응원 메시지 & 새해 소원</label>
+                        <textarea id="wish-text" rows="2" placeholder="따뜻한 응원의 한마디나 2027년 목표를 적어주세요." required
+                                  class="w-full text-xs p-2.5 bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white resize-none"></textarea>
+                    </div>
+
+                    <div class="text-right">
+                        <button type="submit" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-stone-900 font-bold rounded-lg text-xs shadow transition">
+                            💌 메시지 부착하기
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 스티커 메모들 그리드 -->
+            <div id="wish-cards-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <!-- app.js에서 렌더링 -->
+            </div>
+        </section>
+
+        <!-- =================== 언론부 소개 & 조직도 =================== -->
+        <section id="about-section" class="bg-white rounded-2xl p-6 sm:p-10 border border-stone-200 shadow-sm mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-5 space-y-4">
+                    <span class="text-blue-900 text-xs font-bold tracking-widest uppercase">ABOUT US</span>
+                    <h3 class="text-2xl font-serif-kr font-bold text-stone-900">
+                        인덕대학교 언론부 (Induk Press)
+                    </h3>
+                    <p class="text-stone-600 text-sm font-serif-kr leading-relaxed">
+                        인덕대학교 언론부는 학보사, 방송국, 뉴미디어팀으로 구성된 학생 자치 언론 기구입니다. 
+                        캠퍼스의 오늘을 정직하게 취재하고, 학우들의 알 권리와 건전한 대학 여론 형성을 위해 365일 발로 뛰고 있습니다.
+                    </p>
+                    <div class="pt-2 border-t border-stone-100 text-xs text-stone-500 space-y-1">
+                        <div>📍 위치: 서울특별시 노원구 초안산로 12 인덕대학교 은봉관 3층 언론부실</div>
+                        <div>📞 문의: press@induk.ac.kr | 02-950-7000</div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="p-4 rounded-xl bg-stone-50 border border-stone-200">
+                        <div class="text-2xl mb-1">📰</div>
+                        <div class="text-xs font-bold text-stone-800">편집국</div>
+                        <div class="text-[11px] text-stone-500 mt-1">기획기사 & 연말잡지 발행 총괄</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-stone-50 border border-stone-200">
+                        <div class="text-2xl mb-1">🎙️</div>
+                        <div class="text-xs font-bold text-stone-800">방송보도국</div>
+                        <div class="text-[11px] text-stone-500 mt-1">캠퍼스 소식 및 실시간 방송 송출</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-stone-50 border border-stone-200">
+                        <div class="text-2xl mb-1">🎨</div>
+                        <div class="text-xs font-bold text-stone-800">디자인미디어국</div>
+                        <div class="text-[11px] text-stone-500 mt-1">웹진 시각 디자인 & 일러스트</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-stone-50 border border-stone-200">
+                        <div class="text-2xl mb-1">📸</div>
+                        <div class="text-xs font-bold text-stone-800">사진영상국</div>
+                        <div class="text-[11px] text-stone-500 mt-1">현장 보도 사진 & 포토 에세이</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="bg-induk-navy text-stone-400 py-10 border-t border-white/10 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <div class="text-white font-editorial-en font-bold text-lg tracking-wider">INDUK UNIVERSITY PRESS</div>
+                <div class="text-xs text-stone-400 mt-1 font-serif-kr">
+                    2026 인덕대학교 언론부 연말 매거진 특별호 • All Rights Reserved.
+                </div>
+            </div>
+            <div class="flex items-center gap-4 text-xs">
+                <button type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition">
+                    맨 위로 이동 ↑
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 플로팅 액션 버튼 (새 기사 작성 바로가기) -->
+    <button id="fab-editor-btn" type="button" class="fixed bottom-6 right-6 z-40 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-900 font-bold px-5 py-3 rounded-full shadow-2xl flex items-center gap-2.5 transition transform hover:scale-105 active:scale-95 no-print border-2 border-white">
+        <i class="fa-solid fa-feather text-base"></i>
+        <span class="text-sm font-bold">기사 작성 / 제작 폼</span>
+    </button>
+
+
+    <!-- ========================================================
+         MODAL 1: 연말 잡지 기사 제작 및 관리 폼 (MAGAZINE EDITOR FORM)
+         ======================================================== -->
+    <div id="editor-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 hidden">
+        <div class="bg-white rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl border border-stone-200 overflow-hidden">
+            
+            <!-- 모달 상단 탭 헤더 -->
+            <div class="px-6 py-4 bg-stone-50 border-b border-stone-200 flex items-center justify-between flex-wrap gap-3">
+                <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-induk-navy text-amber-400 flex items-center justify-center font-bold text-sm">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </span>
+                    <div>
+                        <h3 class="font-serif-kr font-bold text-stone-900 text-lg">인덕대학교 언론부 기사 제작 폼</h3>
+                        <p class="text-xs text-stone-500">연말 잡지에 게재할 기사를 손쉽게 작성하고 실시간으로 편집/발행합니다.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <!-- 탭 버튼들 -->
+                    <div class="flex border-b border-stone-300 text-sm font-medium">
+                        <button type="button" id="tab-form-btn" class="px-4 py-2 text-blue-900 border-b-2 border-blue-900 font-bold">
+                            ✍️ 기사 작성 폼
+                        </button>
+                        <button type="button" id="tab-preview-btn" class="px-4 py-2 text-gray-500 hover:text-stone-800">
+                            👁️ 실시간 미리보기
+                        </button>
+                        <button type="button" id="tab-list-btn" class="px-4 py-2 text-gray-500 hover:text-stone-800">
+                            📚 전체 기사 관리
+                        </button>
+                    </div>
+
+                    <button type="button" id="close-editor-btn" class="w-8 h-8 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-600 flex items-center justify-center transition">
+                        ✕
+                    </button>
+                </div>
+            </div>
+
+            <!-- 모달 본문 영역 (스크롤 가능) -->
+            <div class="flex-1 overflow-y-auto p-6 bg-slate-50/50">
+
+                <!-- [VIEW 1: 기사 작성 폼] -->
+                <div id="view-form">
+                    <div class="flex items-center justify-between mb-4">
+                        <span id="form-status-badge" class="text-xs px-2.5 py-1 rounded bg-green-100 text-green-800 font-semibold">
+                            신규 기사 작성 모드
+                        </span>
+                        <button type="button" id="reset-form-btn" class="text-xs text-stone-500 hover:text-red-600 flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-left"></i> 폼 내용 초기화
+                        </button>
+                    </div>
+
+                    <form id="article-form" class="space-y-6">
+                        <input type="hidden" id="form-editing-id" value="">
+
+                        <!-- 기본 메타 정보 3분할 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 bg-white p-4 rounded-xl border border-stone-200">
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">카테고리 구분 *</label>
+                                <select id="form-category" class="w-full text-xs form-input-custom bg-white">
+                                    <option value="커버 스토리">커버 스토리 (Cover)</option>
+                                    <option value="캠퍼스 보도" selected>캠퍼스 보도 (Campus)</option>
+                                    <option value="인덕 피플">인덕 피플 (Interview)</option>
+                                    <option value="문화 & 라이프">문화 & 라이프 (Culture)</option>
+                                    <option value="포토 에세이">포토 에세이 (Photo)</option>
+                                    <option value="기획 르포">기획 르포 (Report)</option>
+                                    <option value="언론부 후기">언론부 후기 (Editorial)</option>
+                                    <option value="자유 투고">자유 투고 (Opinion)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">발행 일자 *</label>
+                                <input type="text" id="form-date" class="w-full text-xs form-input-custom" placeholder="2026.12.30">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">예상 읽는 시간</label>
+                                <input type="text" id="form-readtime" class="w-full text-xs form-input-custom" placeholder="예: 4분">
+                            </div>
+                            <div class="flex items-center pt-5">
+                                <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                                    <input type="checkbox" id="form-is-cover" class="w-4 h-4 text-amber-500 rounded border-stone-300 focus:ring-amber-400">
+                                    <span class="text-xs font-bold text-amber-700">★ 이 기사를 표지 커버로 지정</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 기사 제목 및 부제목 -->
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">기사 제목 (Headline) *</label>
+                                <input type="text" id="form-title" required placeholder="독자의 시선을 사로잡을 기사 제목을 입력하세요"
+                                       class="w-full text-sm font-bold form-input-custom">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">부제목 및 한 줄 요약 (Sub-headline)</label>
+                                <input type="text" id="form-subtitle" placeholder="기사의 핵심 요점 또는 매력적인 부제목을 작성하세요"
+                                       class="w-full text-xs form-input-custom">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">작성자 정보 (바이라인) *</label>
+                                <input type="text" id="form-reporter" required placeholder="예: 언론부 보도기자 김인덕 (방송영상미디어)"
+                                       class="w-full text-xs form-input-custom">
+                            </div>
+                        </div>
+
+                        <!-- 대표 커버 이미지 설정 -->
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 space-y-3">
+                            <label class="block text-xs font-bold text-stone-700">대표 썸네일 이미지 설정</label>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                                <div class="md:col-span-8 space-y-3">
+                                    <div>
+                                        <div class="text-[11px] text-stone-500 mb-1">방법 1: 이미지 URL 직접 입력</div>
+                                        <input type="url" id="form-image-url" placeholder="https://images.unsplash.com/..."
+                                               class="w-full text-xs form-input-custom">
+                                    </div>
+                                    <div>
+                                        <div class="text-[11px] text-stone-500 mb-1">방법 2: PC에서 사진 파일 직접 첨부 (자동 변환)</div>
+                                        <input type="file" id="form-image-file" accept="image/*"
+                                               class="w-full text-xs text-stone-600 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                    </div>
+                                </div>
+
+                                <!-- 이미지 미리보기 박스 -->
+                                <div class="md:col-span-4 h-32 rounded-lg bg-stone-100 border border-stone-200 overflow-hidden flex items-center justify-center relative">
+                                    <img id="image-preview-thumb" src="" alt="미리보기" class="w-full h-full object-cover hidden">
+                                    <span id="image-preview-placeholder" class="text-xs text-stone-400">이미지 미리보기</span>
+                                </div>
+                            </div>
+
+                            <!-- 추천 프리셋 갤러리 -->
+                            <div>
+                                <div class="text-[11px] font-semibold text-stone-600 mb-1.5">방법 3: 캠퍼스/잡지 추천 테마 사진 원클릭 선택</div>
+                                <div id="preset-images-container" class="grid grid-cols-4 sm:grid-cols-8 gap-2">
+                                    <!-- editor.js에서 동적 생성 -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 기사 본문 에디터 & 퀵 서식 툴바 -->
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 space-y-2">
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <label class="block text-xs font-bold text-stone-700">기사 본문 내용 작성 *</label>
+                                
+                                <!-- 퀵 서식 툴바 -->
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    <span class="text-[11px] text-stone-400 mr-1">서식 추가:</span>
+                                    <button type="button" id="tool-h3" class="toolbar-btn">+ 소제목</button>
+                                    <button type="button" id="tool-p" class="toolbar-btn">+ 단락</button>
+                                    <button type="button" id="tool-quote" class="toolbar-btn">+ 강조 인용구</button>
+                                    <button type="button" id="tool-img" class="toolbar-btn">+ 사진&캡션</button>
+                                    <button type="button" id="tool-hr" class="toolbar-btn">+ 구분선</button>
+                                </div>
+                            </div>
+
+                            <textarea id="form-content" rows="12" required
+                                      class="w-full p-3.5 text-xs sm:text-sm font-mono leading-relaxed form-input-custom resize-y"
+                                      placeholder="HTML 태그 및 서식을 자유롭게 조합하여 기사를 작성하세요."></textarea>
+                            <div class="text-[11px] text-stone-400">
+                                💡 팁: 첫 문단에 &lt;p class="lead-paragraph"&gt;...&lt;/p&gt;를 사용하면 잡지 특유의 첫 글자 드롭캡이 우아하게 적용됩니다.
+                            </div>
+                        </div>
+
+                        <!-- 기사 요약 및 태그 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white p-4 rounded-xl border border-stone-200">
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">기사 리드문 / 요약 (선택)</label>
+                                <textarea id="form-summary" rows="2" placeholder="카드 목록에 노출될 짧은 요약문입니다."
+                                          class="w-full text-xs form-input-custom resize-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-stone-700 mb-1">해시태그 (쉼표로 구분)</label>
+                                <input type="text" id="form-tags" placeholder="인덕대학교, 캠퍼스, 언론부, 2026연말"
+                                       class="w-full text-xs form-input-custom">
+                            </div>
+                        </div>
+
+                        <!-- 폼 액션 버튼들 -->
+                        <div class="flex items-center justify-end gap-3 pt-2">
+                            <button type="button" onclick="window.magazineEditor.updateLivePreview(); window.magazineEditor.switchTab('preview')" class="px-5 py-2.5 rounded-lg border border-stone-300 text-stone-700 hover:bg-stone-100 text-xs font-bold transition">
+                                👁️ 실시간 미리보기 확인
+                            </button>
+                            <button type="submit" class="px-6 py-2.5 rounded-lg bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold shadow-lg transition flex items-center gap-2">
+                                <i class="fa-solid fa-check"></i>
+                                <span id="save-btn-text">잡지에 기사 발행하기</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- [VIEW 2: 실시간 미리보기 뷰] -->
+                <div id="view-preview" class="hidden">
+                    <div class="mb-4 flex items-center justify-between bg-amber-50 border border-amber-200 p-3 rounded-lg text-xs text-amber-800">
+                        <span>👁️ 현재 폼에 입력된 내용을 바탕으로 생성된 매거진 실시간 뷰입니다.</span>
+                        <button type="button" onclick="window.magazineEditor.switchTab('form')" class="underline font-bold">
+                            ← 폼으로 돌아가기
+                        </button>
+                    </div>
+                    <div id="live-preview-content">
+                        <!-- editor.js의 updateLivePreview()에서 렌더링 -->
+                    </div>
+                </div>
+
+                <!-- [VIEW 3: 전체 기사 관리 & 백업 목록] -->
+                <div id="view-list" class="hidden space-y-6">
+                    <!-- 백업 및 복원 툴바 -->
+                    <div class="bg-white p-4 rounded-xl border border-stone-200 flex flex-wrap items-center justify-between gap-4">
+                        <div class="text-xs text-stone-600">
+                            총 <span class="font-bold text-blue-900">기사 데이터 관리 센터</span> (브라우저 로컬 저장소 동기화 중)
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <button type="button" id="export-json-btn" class="px-3 py-1.5 text-xs font-bold rounded bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100 transition flex items-center gap-1">
+                                <i class="fa-solid fa-download"></i> JSON 데이터 백업 다운로드
+                            </button>
+                            <label class="px-3 py-1.5 text-xs font-bold rounded bg-sky-50 text-sky-800 border border-sky-300 hover:bg-sky-100 transition flex items-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-upload"></i> JSON 파일 불러오기
+                                <input type="file" id="import-json-input" accept=".json" class="hidden">
+                            </label>
+                            <button type="button" id="reset-default-btn" class="px-3 py-1.5 text-xs font-bold rounded bg-stone-100 text-stone-700 hover:bg-stone-200 transition">
+                                🔄 기본 샘플 기사 복원
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 기사 목록 리스트 -->
+                    <div id="articles-management-list" class="space-y-3">
+                        <!-- editor.js의 renderArticlesManagementList()에서 렌더링 -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================================
+         MODAL 2: 기사 전문 상세 읽기 모달 (MAGAZINE ARTICLE READER)
+         ======================================================== -->
+    <div id="reader-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 hidden">
+        <div id="reader-scroll-box" class="bg-white rounded-2xl w-full max-w-4xl max-h-[95vh] overflow-y-auto shadow-2xl border border-stone-200 relative article-modal-inner">
+            
+            <!-- 리더 상단 고정 툴바 -->
+            <div class="sticky top-0 bg-white/95 backdrop-blur-md px-6 py-3.5 border-b border-stone-200 flex items-center justify-between z-20 no-print">
+                <div class="flex items-center gap-2">
+                    <span id="reader-category" class="category-pill bg-blue-900 text-white font-bold">카테고리</span>
+                    <span id="reader-date" class="text-xs text-stone-400 font-sans hidden sm:inline">2026.12.30</span>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <!-- 글자 크기 조절 버튼 -->
+                    <div class="flex items-center bg-stone-100 rounded-lg p-0.5 border border-stone-200 text-xs">
+                        <button type="button" id="font-size-down" class="px-2 py-1 hover:bg-white rounded text-stone-600 font-bold" title="글자 작게">A-</button>
+                        <button type="button" id="font-size-up" class="px-2 py-1 hover:bg-white rounded text-stone-600 font-bold" title="글자 크게">A+</button>
+                    </div>
+
+                    <button type="button" id="reader-share-btn" class="px-2.5 py-1.5 text-xs text-stone-600 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition" title="주소 복사">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+                    <button type="button" id="reader-print-btn" class="px-2.5 py-1.5 text-xs text-stone-600 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition" title="기사 인쇄">
+                        <i class="fa-solid fa-print"></i>
+                    </button>
+                    <button type="button" id="close-reader-btn" class="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center transition ml-2">
+                        ✕
+                    </button>
+                </div>
+            </div>
+
+            <!-- 기사 상세 본문 영역 -->
+            <div class="p-6 sm:p-12 max-w-3xl mx-auto">
+                
+                <div class="text-center mb-8">
+                    <div class="text-xs text-amber-700 font-mono tracking-widest uppercase font-bold mb-2">INDUK PRESS SPECIAL</div>
+                    <h1 id="reader-title" class="text-2xl sm:text-4xl font-serif-kr font-bold text-stone-900 leading-tight mb-4">
+                        기사 제목이 표시됩니다
+                    </h1>
+                    <p id="reader-subtitle" class="text-base sm:text-lg font-serif-kr text-stone-600 leading-relaxed max-w-2xl mx-auto">
+                        부제목 내용입니다.
+                    </p>
+                </div>
+
+                <!-- 작성자 바이라인 카드 -->
+                <div class="flex items-center justify-between border-y border-stone-200 py-3 mb-8 text-xs text-stone-500 font-sans">
+                    <div class="flex items-center gap-3">
+                        <div id="reader-reporter-avatar" class="w-8 h-8 rounded-full bg-blue-900 text-white font-bold flex items-center justify-center">
+                            인
+                        </div>
+                        <div>
+                            <span id="reader-reporter" class="font-bold text-stone-800">언론부 기자</span>
+                            <span class="text-stone-400 ml-1.5">• 인덕대학교 언론부</span>
+                        </div>
+                    </div>
+                    <div id="reader-readtime" class="font-mono">소요시간: 4분</div>
+                </div>
+
+                <!-- 대표 이미지 -->
+                <div class="mb-10 rounded-xl overflow-hidden shadow-lg border border-stone-200">
+                    <img id="reader-cover-img" src="" alt="기사 대표 이미지" class="w-full max-h-[460px] object-cover">
+                </div>
+
+                <!-- 기사 텍스트 본문 (리치 포맷팅 적용) -->
+                <div id="reader-body" class="article-reader-content">
+                    <!-- app.js에서 기사 본문 삽입 -->
+                </div>
+
+                <!-- 해시태그 목록 -->
+                <div id="reader-tags" class="mt-12 pt-6 border-t border-stone-200 flex flex-wrap gap-2">
+                    <!-- app.js에서 태그 렌더링 -->
+                </div>
+
+                <!-- 하단 언론부 저작권 안내 -->
+                <div class="mt-8 p-4 bg-stone-50 rounded-xl border border-stone-200 text-xs text-stone-500 leading-relaxed font-sans">
+                    📌 본 기사는 인덕대학교 언론부의 취재 및 편집을 거쳐 발행된 2026 연말 특별호 콘텐츠입니다. 무단 전재 및 재배포를 금하며, 기사 제보 및 정정 신청은 언론부 편집국(press@induk.ac.kr)으로 문의 바랍니다.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 3: 롤링페이퍼 메모 수정 모달 (WISH EDIT MODAL)
+         ======================================================== -->
+    <div id="wish-edit-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden no-print">
+        <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl border border-stone-200 animate-in fade-in zoom-in duration-200">
+            <div class="flex items-center justify-between border-b border-stone-200 pb-3 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">✏️</span>
+                    <div>
+                        <h3 class="font-serif-kr font-bold text-stone-900 text-base">롤링페이퍼 메모 수정</h3>
+                        <p class="text-[11px] text-stone-500">작성했던 응원 메시지나 이름, 메모지 색상을 변경합니다.</p>
+                    </div>
+                </div>
+                <button type="button" id="close-wish-edit-btn" class="w-7 h-7 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center text-xs transition">
+                    ✕
+                </button>
+            </div>
+
+            <form id="wish-edit-form" class="space-y-4">
+                <input type="hidden" id="edit-wish-id">
+
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 mb-1">작성자 (이름 / 전공) *</label>
+                    <input type="text" id="edit-wish-author" required placeholder="예: 시각디자인과 23학번"
+                           class="w-full text-xs p-2.5 bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 mb-1">메모지 색상 변경</label>
+                    <div class="flex items-center gap-3 pt-1">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="edit-wish-color" value="yellow" class="hidden peer">
+                            <span class="w-6 h-6 rounded-full bg-yellow-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 shadow-sm transition"></span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="edit-wish-color" value="pink" class="hidden peer">
+                            <span class="w-6 h-6 rounded-full bg-pink-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 shadow-sm transition"></span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="edit-wish-color" value="blue" class="hidden peer">
+                            <span class="w-6 h-6 rounded-full bg-blue-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 shadow-sm transition"></span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="edit-wish-color" value="green" class="hidden peer">
+                            <span class="w-6 h-6 rounded-full bg-green-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 shadow-sm transition"></span>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="edit-wish-color" value="purple" class="hidden peer">
+                            <span class="w-6 h-6 rounded-full bg-purple-300 inline-block border-2 border-transparent peer-checked:border-stone-800 peer-checked:scale-110 shadow-sm transition"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-stone-700 mb-1">응원 메시지 & 새해 소원 *</label>
+                    <textarea id="edit-wish-text" rows="3" required placeholder="수정할 내용을 입력하세요."
+                              class="w-full text-xs p-2.5 bg-stone-50 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-500 focus:bg-white resize-none"></textarea>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 pt-2 border-t border-stone-100">
+                    <button type="button" id="cancel-wish-edit-btn" class="px-4 py-2 rounded-lg border border-stone-300 text-stone-600 hover:bg-stone-50 text-xs font-bold transition">
+                        취소
+                    </button>
+                    <button type="submit" class="px-5 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-stone-900 text-xs font-bold shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-check"></i>
+                        <span>수정 완료</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 스크립트 연결 -->
+    <script src="js/data.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

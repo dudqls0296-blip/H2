@@ -1,0 +1,279 @@
+/* ========================================================
+   인덕대학교 언론부 2026 연말 매거진 커스텀 스타일시트
+   INDUK PRESS 2026 YEAR-END WEBZINE
+   ======================================================== */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Nanum+Myeongjo:wght@400;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap');
+
+:root {
+    --induk-navy: #0b1a30;
+    --induk-navy-light: #162a4a;
+    --induk-gold: #c59b27;
+    --induk-gold-light: #e6c567;
+    --induk-wine: #7b1828;
+    --paper-bg: #fbf9f5;
+    --paper-card: #ffffff;
+    --text-primary: #191f28;
+    --text-secondary: #4e5968;
+    --text-muted: #8b95a1;
+    --border-color: #e5e8eb;
+    --border-dark: #233554;
+}
+
+body {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    background-color: var(--paper-bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.font-serif-kr {
+    font-family: "Nanum Myeongjo", serif;
+}
+
+.font-editorial-en {
+    font-family: "Cinzel", "Playfair Display", serif;
+}
+
+/* ================== 눈 내리는 캔버스 배경 ================== */
+#snow-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 40;
+    transition: opacity 0.5s ease;
+}
+
+/* ================== 잡지 표지 및 헤더 ================== */
+.magazine-header-border {
+    border-top: 4px solid var(--induk-navy);
+    border-bottom: 1px solid rgba(11, 26, 48, 0.15);
+}
+
+.magazine-masthead {
+    letter-spacing: 0.15em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* 표지 커버 카드 (Editorial Hero) */
+.hero-cover-container {
+    background: linear-gradient(135deg, #091426 0%, #10233f 60%, #1a3257 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-cover-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(212, 175, 55, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+}
+
+.gold-badge {
+    background: linear-gradient(135deg, #dfb746 0%, #b8860b 100%);
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.cover-gold-border {
+    border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+/* ================== 기사 카드 스타일 ================== */
+.article-card {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background: #ffffff;
+    border: 1px solid #ebe6df;
+}
+
+.article-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 30px -10px rgba(11, 26, 48, 0.12);
+    border-color: #d1c7b7;
+}
+
+.article-card .card-thumb-container {
+    overflow: hidden;
+}
+
+.article-card .card-thumb {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.article-card:hover .card-thumb {
+    transform: scale(1.05);
+}
+
+/* 뱃지 */
+.category-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    text-transform: uppercase;
+}
+
+/* ================== 잡지 본문 리더 모달 ================== */
+.article-reader-content {
+    font-family: "Nanum Myeongjo", serif;
+    line-height: 2.05;
+    font-size: 1.125rem;
+    color: #2b303a;
+}
+
+.article-reader-content p {
+    margin-bottom: 1.6rem;
+    word-break: keep-all;
+    text-align: justify;
+}
+
+/* 드롭캡: 첫 단락 첫 글자 크게 */
+.article-reader-content .lead-paragraph::first-letter {
+    font-size: 3.4em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.12em 0.15em 0 0;
+    color: var(--induk-navy);
+    font-family: "Cinzel", "Nanum Myeongjo", serif;
+    font-weight: 700;
+}
+
+.article-subheading {
+    font-family: "Pretendard", sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--induk-navy);
+    margin-top: 2.4rem;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--induk-gold);
+}
+
+.magazine-quote {
+    margin: 2.2rem 0;
+    padding: 1.5rem 1.8rem;
+    background: #f7f5f0;
+    border-left: 5px solid var(--induk-wine);
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 700;
+    color: #3b2a2a;
+    border-radius: 0 8px 8px 0;
+}
+
+.magazine-quote cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 0.88rem;
+    font-style: normal;
+    font-family: "Pretendard", sans-serif;
+    color: #718096;
+    font-weight: 500;
+}
+
+.article-inline-image {
+    margin: 2.2rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f0ede6;
+}
+
+.article-inline-image img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    display: block;
+}
+
+.article-inline-image .caption {
+    display: block;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    font-family: "Pretendard", sans-serif;
+    color: #64748b;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* ================== 소원 트리 & 롤링페이퍼 ================== */
+.wish-note {
+    transition: all 0.25s ease;
+    box-shadow: 3px 5px 12px rgba(0,0,0,0.08);
+}
+
+.wish-note:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+    z-index: 10;
+    box-shadow: 6px 12px 20px rgba(0,0,0,0.14);
+}
+
+.wish-yellow { background-color: #fef9c3; border-top: 4px solid #ca8a04; color: #713f12; }
+.wish-pink   { background-color: #fce7f3; border-top: 4px solid #db2777; color: #831843; }
+.wish-blue   { background-color: #e0f2fe; border-top: 4px solid #0284c7; color: #0c4a6e; }
+.wish-green  { background-color: #dcfce7; border-top: 4px solid #16a34a; color: #14532d; }
+.wish-purple { background-color: #f3e8ff; border-top: 4px solid #9333ea; color: #581c87; }
+
+.wish-note .btn-edit-wish,
+.wish-note .btn-delete-wish {
+    cursor: pointer;
+    user-select: none;
+}
+
+
+/* ================== 폼 컨트롤 커스텀 ================== */
+.form-input-custom {
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.form-input-custom:focus {
+    outline: none;
+    border-color: #1e40af;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.15);
+}
+
+/* 에디터 툴바 버튼 */
+.toolbar-btn {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 0.375rem;
+    background-color: #f1f5f9;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    transition: all 0.15s ease;
+}
+
+.toolbar-btn:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
+/* 인쇄용 스타일 (잡지 인쇄 모드) */
+@media print {
+    #snow-canvas, header, footer, #admin-fab, #filter-section, .no-print {
+        display: none !important;
+    }
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+    .article-modal-inner {
+        max-width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+}
